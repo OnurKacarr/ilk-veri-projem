@@ -1,24 +1,19 @@
-import os
-
 print("--- Islem Baslatiliyor ---")
 
-# Dosyanın varlığını kontrol edelim
-if os.path.exists('verilerim.txt'):
-    with open('verilerim.txt', 'r', encoding='utf-8') as dosya:
+try:
+    # Dosyayı hata almamak için latin-1 ve errors ignore ile açıyoruz
+    with open("verilerim.txt", "r", encoding="utf-8", errors="ignore") as dosya:
         icerik = dosya.read()
     
-    print(f"Okunan Veri: {icerik}")
-
-    # Veriyi dönüştürelim
-    buyuk_metin = icerik.upper()
-    kelime_sayisi = len(icerik.split())
-
-    # Sonucu kaydedelim
-    with open('sonuclar.txt', 'w', encoding='utf-8') as hedef:
-        hedef.write(f"Kelime Sayisi: {kelime_sayisi}\n")
-        hedef.write(buyuk_metin)
+    # Veriyi büyük harfe çevir
+    sonuc = icerik.upper()
     
-    print("--- Islem Basariyla Tamamlandi! ---")
-    print("Simdi klasorundeki 'sonuclar.txt' dosyasina bakabilirsin.")
-else:
-    print("HATA: 'verilerim.txt' dosyasi bulunamadi! Lutfen dosyayi olusturdugundan emin ol.")
+    # Sonucu kaydet
+    with open("sonuclar.txt", "w", encoding="utf-8") as dosya:
+        dosya.write(sonuc)
+    
+    print("✅ Veri işleme başarıyla tamamlandı.")
+    print("✅ Sonuçlar sonuclar.txt dosyasına kaydedildi.")
+
+except Exception as e:
+    print(f"❌ Bir hata oluştu: {e}")
